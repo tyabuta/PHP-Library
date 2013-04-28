@@ -84,8 +84,8 @@ function paramWithCmdLine($q, $i, $def=""){
 * $def: デフォルト値(省略時は空文字列)
 */
 function valreq($q, $def=""){
-    $val = $_REQUEST[$q];
-    return empty($val)? $def : $val;
+    if (!isset($_REQUEST[$q]) || empty($_REQUEST[$q])) return $def;
+    return $_REQUEST[$q];
 }
 
 
@@ -96,8 +96,8 @@ function valreq($q, $def=""){
 * $def: デフォルト値(省略時は空文字列)
 */
 function valpos($q, $def=""){
-    $val = $_POST[$q];
-    return empty($val)? $def : $val;
+    if (!isset($_POST[$q]) || empty($_POST[$q])) return $def;
+    return $_POST[$q];
 }
 
 /*
@@ -107,8 +107,8 @@ function valpos($q, $def=""){
 * $def: デフォルト値(省略時は空文字列)
 */
 function valget($q, $def=""){
-    $val = $_GET[$q];
-    return empty($val)? $def : $val;
+    if (!isset($_GET[$q]) || empty($_GET[$q])) return $def;
+    return $_GET[$q];
 }
 
 
