@@ -1,5 +1,38 @@
 <?php
 
+
+/*
+ * SQLインジェクションを防止する為、無効な文字列を排除する。
+ * プリペアドステートメントを使う場合は必要なし。
+ */
+function SQLSanitizeForInt($val){
+    return intval($val);
+}
+
+/*
+ * SQLインジェクションを防止する為、無効な文字列を排除する。
+ * プリペアドステートメントを使う場合は必要なし。
+ */
+function SQLSanitizeForDouble($val){
+    return doubleval($val);
+}
+
+/*
+ * SQLインジェクションを防止する為、特殊文字をエスケープする。
+ * プリペアドステートメントを使う場合は必要なし。
+ */
+function SQLSanitizeForString($val){
+    return addslashes($val);
+}
+
+/*
+* HTML出力用のサニタイズ関数
+* HTML出力する際はサニタイズしておく。
+*/
+function HTMLSanitize($val){
+    return htmlspecialchars($val, ENT_QUOTES);
+}
+
 /*
 * 400 Bad Request 用の出力関数
 * リクエストに不正があった場合に使う。
