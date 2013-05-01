@@ -53,6 +53,43 @@ function HTMLRenderForbidden() {
 
 
 /*
+* HTMLファイルのメタデータを出力する。
+*/
+function HTMLRenderMeta(){
+    print <<<"EOF"
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="user-scalable=0,width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+EOF;
+}
+
+/*
+* IE8以前でHTML5タグを認識させる為の記述
+*/
+function HTMLRenderHtml5js(){
+    print <<<"EOF"
+<!-- IE8以前でHTML5タグを認識させる -->
+<!--[if lte IE 8]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+EOF;
+}
+
+/*
+* jQuery mobileの導入
+*/
+function HTMLRenderjQuery(){
+    print <<<"EOF"
+<!-- jQuery mobile -->
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+EOF;
+}
+
+
+/*
 * $_REQUESTに値が設定されていない場合、
 * コマンドライン引数から値を取得する。
 * どちらも値が設定されていないなら、$defを使用する。
