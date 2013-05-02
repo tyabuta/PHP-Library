@@ -118,6 +118,30 @@ EOF;
 
 
 /*
+* 赤いボタン用のCSSを出力する。
+*/
+function CSSRenderRedButton(){
+    print <<<"EOF"
+.RedButton {
+    padding: 0.5em;
+    display: inline-block;
+    font-size: 14px;
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    background-image: -webkit-linear-gradient(top, #be0000, #990000);
+    background-image: -moz-linear-gradient(top, #be0000, #990000);
+    background-image: -o-linear-gradient(top, #be0000, #990000);
+    background-image: -linear-gradient(to bottom, #be0000, #990000);
+    border-radius: 10px;
+    box-shadow: 0px 5px 2px #333, 0px 0px 3px #e5acac inset;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+    border: 2px solid #990000;
+}
+EOF;
+}
+
+/*
 * $_REQUESTに値が設定されていない場合、
 * コマンドライン引数から値を取得する。
 * どちらも値が設定されていないなら、$defを使用する。
