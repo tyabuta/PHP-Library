@@ -27,6 +27,21 @@ function selfname(){
 }
 
 
+/*
+* POSTリクエストを送信し、コンテンツを取得する。
+* データ取得に失敗した場合は、NULLが返る。
+*
+*    $url: リクエスト先のURL
+* $params: リクエスト用のパラメータ値を連想配列で渡す。
+*          例) array("q"=>"something")
+*/
+function HTTPPost($url, $params){
+    $options = array('http' => array(
+                'method'  => 'POST',
+                'header'  => 'Content-type: application/x-www-form-urlencoded; charset=UTF-8',
+                'content' => http_build_query($params)));
+    return @file_get_contents($url, false, stream_context_create($options));
+}
 
 
 /*
@@ -52,6 +67,10 @@ function SQLSanitizeForDouble($val){
 function SQLSanitizeForString($val){
     return addslashes($val);
 }
+
+
+
+
 
 /*
 * HTML出力用のサニタイズ関数
