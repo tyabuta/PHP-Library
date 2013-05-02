@@ -2,6 +2,34 @@
 
 
 /*
+* ファイルへのログ出力関数
+* 省略時は$_SERVER['PHP_SELF']で取得したファイル名に
+* 拡張子 ".log" を付けたものになります。
+*/
+function outlog($msg, $logname){
+    global $_logger_path;
+    if (false == isset($_logger_path)){
+        if (empty($logname)){
+            $logname = basename($_SERVER['PHP_SELF']) . ".log";
+        }
+        $_logger_path = $logname;
+    } 
+    $strDate = date("Y/m/d H:i:s");
+    error_log("[{$strDate}] {$msg}\n", 3, $_logger_path);
+}
+
+
+/*
+* リクエストのあったファイル自身名を取得する。
+*/
+function selfname(){
+    return basename($_SERVER['PHP_SELF']);
+}
+
+
+
+
+/*
  * SQLインジェクションを防止する為、無効な文字列を排除する。
  * プリペアドステートメントを使う場合は必要なし。
  */
