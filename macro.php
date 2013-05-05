@@ -6,7 +6,7 @@
 * 省略時は$_SERVER['PHP_SELF']で取得したファイル名に
 * 拡張子 ".log" を付けたものになります。
 */
-function outlog($msg, $logname){
+function outlog($msg, $logname=""){
     global $_logger_path;
     if (false == isset($_logger_path)){
         if (empty($logname)){
