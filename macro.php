@@ -6,28 +6,6 @@
                                                   (c) 2013 tyabuta.
 ********************************************************************/
 
-/*
-* セッションデータをCookieも含めて全て削除する。
-* セッションを再開するには session_start() をコールする必要があります。
- */
-function SessionRemove(){
-    if (isset($_SESSION) || session_start()){
-        // スーパーグローバル変数の初期化
-        $_SESSION = array();
-        // Cookie削除
-        if (ini_get("session.use_cookies")){
-            $params = session_get_cookie_params();
-            setcookie(session_name(), '', time() - 42000,
-                    $params["path"],
-                    $params["domain"],
-                    $params["secure"],
-                    $params["httponly"]);
-        }
-    }
-    // セッション登録データ削除
-    $ret = session_destroy();
-    return $ret;
-}
 
 /*
 * bool値を文字列へ変換する。
@@ -79,9 +57,6 @@ function HTTPPost($url, $params){
 }
 
 
-
-
-
 /*
 * 赤いボタン用のCSSを出力する。
 */
@@ -106,6 +81,33 @@ function CSSRenderRedButton(){
 EOF;
 }
 
+
+/* ------------------------------------------------------------------
+* セッション関係
+-------------------------------------------------------------------*/
+
+/*
+* セッションデータをCookieも含めて全て削除する。
+* セッションを再開するには session_start() をコールする必要があります。
+ */
+function SessionRemove(){
+    if (isset($_SESSION) || session_start()){
+        // スーパーグローバル変数の初期化
+        $_SESSION = array();
+        // Cookie削除
+        if (ini_get("session.use_cookies")){
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                    $params["path"],
+                    $params["domain"],
+                    $params["secure"],
+                    $params["httponly"]);
+        }
+    }
+    // セッション登録データ削除
+    $ret = session_destroy();
+    return $ret;
+}
 
 
 /*
