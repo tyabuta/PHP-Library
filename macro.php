@@ -7,6 +7,29 @@
 ********************************************************************/
 
 /*
+* セッションデータをCookieも含めて全て削除する。
+* セッションを再開するには session_start() をコールする必要があります。
+ */
+function SessionRemove(){
+    if (isset($_SESSION) || session_start()){
+        // スーパーグローバル変数の初期化
+        $_SESSION = array();
+        // Cookie削除
+        if (ini_get("session.use_cookies")){
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                    $params["path"],
+                    $params["domain"],
+                    $params["secure"],
+                    $params["httponly"]);
+        }
+    }
+    // セッション登録データ削除
+    $ret = session_destroy();
+    return $ret;
+}
+
+/*
 * bool値を文字列へ変換する。
 */
 function strbool($bValue){
@@ -25,7 +48,7 @@ function outlog($msg, $logname=""){
             $logname = basename($_SERVER['PHP_SELF']) . ".log";
         }
         $_logger_path = $logname;
-    } 
+    }
     $strDate = date("Y/m/d H:i:s");
     error_log("[{$strDate}] {$msg}\n", 3, $_logger_path);
 }
@@ -149,8 +172,8 @@ function boolRequestWithParamName($q, $def=false){
             if (preg_match('/^(n|no|false)$/i', $val)){
                 return false;
             }
-            
-            return (0 != $val);        
+
+            return (0 != $val);
         }
     }
     return $def;
@@ -176,8 +199,8 @@ function paramWithCmdLine($q, $i, $def=""){
     if ($argv[$i]){
         return $argv[$i];
     }
-   
-    return $def;    
+
+    return $def;
 }
 
 
