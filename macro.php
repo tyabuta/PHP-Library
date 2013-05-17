@@ -235,28 +235,49 @@ function paramWithCmdLine($q, $i, $def=""){
 
 
 
-
 /* ------------------------------------------------------------------
-* Scriptインジェクション
+* サニタイズ関係
 -------------------------------------------------------------------*/
+// void SanitizeShellArgument($arg)
+// void SanitizeHtml($val)
+// void SanitizeSQLInt($val)
+// void SanitizeSQLDouble($val)
+// void SanitizeSQLString($val)
+
+
+
+// OSコマンドインジェクション対策
+// ==============================
+
+/*
+* シェルコマンドに渡す引数文字列をサニタイズする。
+* 文字列はシングルクォートで囲まれ、特殊文字はエスケープされます。
+*/
+function SanitizeShellArgument($arg){
+    return escapeshellarg($arg);
+}
+
+
+// Scriptインジェクション対策
+// ==========================
 
 /*
 * HTML出力用のサニタイズ関数
 * HTML出力する際はサニタイズしておく。
 */
-function HTMLSanitize($val){
+function SanitizeHtml($val){
     return htmlspecialchars($val, ENT_QUOTES);
 }
 
-/* ------------------------------------------------------------------
-* SQLインジェクション
--------------------------------------------------------------------*/
+
+// SQLインジェクション対策
+// =======================
 
 /*
  * SQLインジェクションを防止する為、無効な文字列を排除する。
  * プリペアドステートメントを使う場合は必要なし。
  */
-function SQLSanitizeWithInt($val){
+function SanitizeSQLInt($val){
     return intval($val);
 }
 
@@ -264,7 +285,7 @@ function SQLSanitizeWithInt($val){
  * SQLインジェクションを防止する為、無効な文字列を排除する。
  * プリペアドステートメントを使う場合は必要なし。
  */
-function SQLSanitizeWithDouble($val){
+function SanitizeSQLDouble($val){
     return doubleval($val);
 }
 
@@ -272,7 +293,7 @@ function SQLSanitizeWithDouble($val){
  * SQLインジェクションを防止する為、特殊文字をエスケープする。
  * プリペアドステートメントを使う場合は必要なし。
  */
-function SQLSanitizeWithString($val){
+function SanitizeSQLString($val){
     return addslashes($val);
 }
 
