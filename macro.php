@@ -57,6 +57,22 @@ function HTTPPost($url, $params){
 }
 
 
+
+/*
+* JSON出力関数
+* HTTPヘッダも含めて、レンダリングする。
+* data: ハッシュ、または配列によるデータ表現を渡す。
+*/
+function JSONRenderWithData($data) {
+    // JSON作成
+    $json_value = json_encode($data);
+    // JSONヘッダ
+    header("Content-Type: application/json; charset=UTF-8");
+    // JSON出力
+    print $json_value . "\n";
+}
+
+
 /*
 * 赤いボタン用のCSSを出力する。
 */
@@ -364,4 +380,6 @@ function HTMLRenderjQuery(){
 <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
 EOF;
 }
+
+
 
