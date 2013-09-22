@@ -6,7 +6,27 @@
                                                   (c) 2013 tyabuta.
 ********************************************************************/
 
-
+/*-------------------------------------------------------------------
+ * 指定時刻があと何時何分か'##:##'の書式文字列で取得する。
+ * $time_expr: '13:15' のような時刻文字列を指定する。
+-------------------------------------------------------------------*/
+function get_time_left($time_expr){
+ 
+    $now    = time();
+    $target = date("Y-m-d {$time_expr}:00", $now);
+ 
+    // 既に過ぎた時間であれば、翌日の日付にする。
+    if (strtotime($target) < $now){
+        $tommorow = date('d', $now) + 1;
+        $target   = date("Y-m-{$tommorow} {$time_expr}:00");
+    }
+ 
+    $diff         = strtotime($target) - $now;
+    $diff_hour    = intval($diff / 3600);
+    $diff_minutes = intval($diff / 60) % 60;
+ 
+    return sprintf("%02d:%02d", $diff_hour, $diff_minutes);
+}
 
 
 /*-------------------------------------------------------------------
