@@ -34,5 +34,23 @@ class Console
         return trim(fgets(STDIN,4096));
     }
 
+    /*---------------------------------------------------------------
+     * メッセージ付きで標準入力から整数値を受け取る
+     * 無効な入力の場合nullを返す。
+     --------------------------------------------------------------*/
+    public static function getNumberWithMessage($msg){
+        echo $msg . PHP_EOL;
+        echo ">>> ";
+        return self::getNumber();
+    }
+
+    /*---------------------------------------------------------------
+     * メッセージ付きで標準入力から一行分の文字列を受け取る ※改行コードは含まれない
+     --------------------------------------------------------------*/
+    public static function getStringWithMessage($msg){
+        echo $msg . PHP_EOL;
+        echo ">>> ";
+        return self::getString();
+    }
 }// End of Class
 
