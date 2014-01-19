@@ -56,23 +56,23 @@ class Console
 
     /*---------------------------------------------------------------
      * 標準入力からboolean値を受け取る (yes or no)
-     * どちらでもない場合はNULLをかえす。
+     * どちらでもない場合は$default値をかえす。指定なしの場合はNULL
      --------------------------------------------------------------*/
-    public static function getBoolean(){
+    public static function getBoolean($default=NULL){
         $value = self::getString();
         if (preg_match("/^(y|yes)$/i", $value)) return true;
         if (preg_match("/^(n|no)$/i", $value))  return false;
-        return null;
+        return $default;
     }
 
     /*---------------------------------------------------------------
      * メッセージ付きで標準入力からboolean値を受け取る (yes or no)
      * どちらでもない場合はNULLをかえす。
      --------------------------------------------------------------*/
-    public static function getBooleanWithMessage($msg){
+    public static function getBooleanWithMessage($msg, $default=NULL){
         echo $msg . " [yes/no]" . PHP_EOL;
         echo ">>> ";
-        return self::getBoolean();
+        return self::getBoolean($default);
     }
 
 }// End of Class
