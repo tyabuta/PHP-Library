@@ -20,37 +20,43 @@ class Console
 
     /*---------------------------------------------------------------
      * 標準入力から整数値を受け取る
-     * 無効な入力の場合nullを返す。
+     * 無効な入力の場合default値を返す。
      --------------------------------------------------------------*/
-    public static function getNumber(){
+    public static function getNumber($default=NULL){
         fscanf(STDIN, "%d\n", $number); // STDIN から数値を読み込む
+
+        if (is_null($number)) return $default;
         return $number;
     }
 
     /*---------------------------------------------------------------
      * 標準入力から一行分の文字列を受け取る ※改行コードは含まれない
+     * 無効な入力の場合default値を返す。
      --------------------------------------------------------------*/
-    public static function getString() {
-        return trim(fgets(STDIN,4096));
+    public static function getString($default='') {
+        $str = trim(fgets(STDIN,4096));
+        if (empty($str)) return $default;
+        return $str;
     }
 
     /*---------------------------------------------------------------
      * メッセージ付きで標準入力から整数値を受け取る
-     * 無効な入力の場合nullを返す。
+     * 無効な入力の場合default値を返す。
      --------------------------------------------------------------*/
-    public static function getNumberWithMessage($msg){
+    public static function getNumberWithMessage($msg, $default=NULL){
         echo $msg . PHP_EOL;
         echo ">>> ";
-        return self::getNumber();
+        return self::getNumber($default);
     }
 
     /*---------------------------------------------------------------
      * メッセージ付きで標準入力から一行分の文字列を受け取る ※改行コードは含まれない
+     * 無効な入力の場合default値を返す。
      --------------------------------------------------------------*/
-    public static function getStringWithMessage($msg){
+    public static function getStringWithMessage($msg, $default=''){
         echo $msg . PHP_EOL;
         echo ">>> ";
-        return self::getString();
+        return self::getString($default);
     }
 
 
